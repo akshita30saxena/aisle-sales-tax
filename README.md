@@ -38,3 +38,9 @@ Start
 ```sh
 npm start
 ```
+
+Testing
+
+```sh
+npm run test
+```

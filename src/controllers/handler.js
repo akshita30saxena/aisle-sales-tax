@@ -20,18 +20,31 @@ export class Handler {
 
   validateAndHandleInput(input) {
     logMessage("Receipt Detail received, validating...");
-    input = input.trim();
+    // For multiple items in single input
+    input = input.trim().match(constants.inputSplitBy);
+    let invalid = false;
+    let validInputs = [];
 
-    if (validateInput(input)) {
-      this.inputArray.push(input);
+    for (const item of input) {
+      if (validateInput(item)) {
+        validInputs.push(item);
+      } else invalid = true;
+    }
+
+    if (invalid) {
       logMessage(
-        `Receipt Items: \n${this.inputArray.join("\n")}`,
-        constants.success
+        "One or More Receipt Item(s) were invalid, Please try again.",
+        constants.error
       );
       return;
     }
 
-    logMessage("Invalid Receipt Item, Please try again.", constants.error);
+    this.inputArray.push(...validInputs);
+
+    logMessage(
+      `Receipt Items: \n${this.inputArray.join("\n")}`,
+      constants.success
+    );
   }
 
   handleResult(output) {
@@ -45,6 +58,5 @@ export class Handler {
     result += `Total: ${output.total}`;
 
     logMessage(result, constants.success);
-    this.inputArray = [];
   }
 }

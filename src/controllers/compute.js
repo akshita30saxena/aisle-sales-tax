@@ -18,17 +18,12 @@ export class Compute {
   isExempted(name) {
     name = name.toLowerCase();
 
-    return (
-      validateKeyInArray(name, constants.exemptedItems) &&
-      !name.includes(constants.imported)
-    );
+    return validateKeyInArray(name, constants.exemptedItems);
   }
 
-  computeTax(name, price) {
-    let tax = 0.1 * price;
-
+  computeTax(name, price, tax) {
     if (name.includes(constants.imported)) {
-      tax += 0.05 * tax;
+      tax += 0.05 * price;
     }
 
     return roundOff(tax);
@@ -43,14 +38,13 @@ export class Compute {
 
     for (const item of this.handler.inputArray) {
       const { name, price } = this.retrieveItemDetails(item);
+      let tax = 0;
 
-      if (this.isExempted(name)) {
-        output.items.push(`${name}: ${price}`);
-        output.total += price;
-        continue;
+      if (!this.isExempted(name)) {
+        tax += 0.1 * price;
       }
 
-      let tax = this.computeTax(name, price);
+      tax = this.computeTax(name, price, tax);
       output.tax += tax;
       output.total += tax + price;
       output.items.push(`${name}: ${fixDecimal(price + tax)}`);
