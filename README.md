@@ -9,34 +9,31 @@ When I purchase items I receive a receipt which lists the name of all the items 
 ## Folder Structure
 
 src
-|
-|**index
-|
-|**constants
-|\_**\_strings
-|
-|**controllers
-|\_**\_compute
-|\_\_**handler
-|\_**\_process
-|
-|**utils
-|\_**\_input
-|\_\_**output
-|\_**\_transform
-|\_\_**validation
+
+- index
+- constants
+  - strings
+- controllers
+  - compute
+  - handler
+  - process
+- utils
+  - input
+  - output
+  - transform
+  - validation
 
 ## How To Run
 
 Open a terminal, navigate to the root of the project & follow the below mentioned steps to setup & run the application:
 
-# Install
+Install
 
 ```sh
 npm install
 ```
 
-# Start
+Start
 
 ```sh
 npm start
