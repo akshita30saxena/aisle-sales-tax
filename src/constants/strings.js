@@ -1,5 +1,6 @@
 export default {
-  inputRegex: /^\d{1,}[\s{1}\w]+(at)\s[+-]?([0-9]*[.])?[0-9]+$/,
+  inputRegex: /^\d{1,}[\s\w]+(at)\s[+-]?([0-9]*[.])?[0-9]+$/,
+  splitBy: " at ",
   compute: {
     code: "1",
     text: "compute",
